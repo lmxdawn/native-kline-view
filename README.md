@@ -73,14 +73,6 @@ Perfect for cryptocurrency exchanges, stock trading apps, financial dashboards, 
 yarn add native-kline-view@https://github.com/hellohublot/native-kline-view.git
 ```
 
-iOS:
-```bash
-cd ios && pod install
-```
-
-Android:
-No additional setup required.
-
 ### Flutter (Git)
 
 ```yaml
@@ -92,13 +84,9 @@ dependencies:
 ```
 
 iOS:
-```bash
-cd ios && pod install
-```
-
 Note: The Flutter plugin depends on the native pod. In your Flutter app Podfile, add:
 ```ruby
-pod 'NativeKLineView', :path => '../../../ios'
+pod 'NativeKLineView', :podspec => 'https://raw.githubusercontent.com/hellohublot/native-kline-view/main/ios/NativeKLineView.podspec'
 ```
 
 ```dart
@@ -114,15 +102,7 @@ NativeKLineView(
 
 Podfile via Git:
 ```ruby
-pod 'NativeKLineView',
-  :git => 'https://github.com/hellohublot/native-kline-view.git',
-  :tag => '1.0.0',
-  :podspec => 'ios/NativeKLineView.podspec'
-```
-
-Or use a local clone:
-```ruby
-pod 'NativeKLineView', :path => '../native-kline-view/ios'
+pod 'NativeKLineView', :podspec => 'https://raw.githubusercontent.com/hellohublot/native-kline-view/main/ios/NativeKLineView.podspec'
 ```
 
 ### Native Android
@@ -136,7 +116,7 @@ git submodule add https://github.com/hellohublot/native-kline-view.git
 ```gradle
 // settings.gradle
 include(":native-kline-view")
-project(":native-kline-view").projectDir = new File(rootDir, "../native-kline-view/android")
+project(":native-kline-view").projectDir = new File(rootDir, "../native-kline-view/android/android-native")
 ```
 
 ```gradle

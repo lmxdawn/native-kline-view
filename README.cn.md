@@ -4,65 +4,83 @@
   <img src="./examples/react-native/logo.png" alt="React Native KLine View" width="120" height="120" style="border-radius: 60px;" />
 </div>
 
-**专业的 React Native / 原生 iOS&Android / Flutter K 线（蜡烛图）图表库**
-  
+**专业的 React Native / 原生 iOS & Android / Flutter K 线（蜡烛图）图表库**
+
 *超流畅渲染 • 交互式绘图工具 • 多种技术指标 • 深色/浅色主题*
-  
+
 [English](./README.md) | 中文文档
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Platform](https://img.shields.io/badge/platform-ios%20%7C%20android-lightgrey)](https://reactnative.dev)
 
-React Native KLine View 是一个高性能、功能丰富的蜡烛图表组件，专为专业交易应用而设计。通过iOS和Android双平台的原生优化，提供流畅的60fps滚动、缩放和实时数据更新。
-适用于加密货币交易所、股票交易应用、金融仪表板以及任何需要专业级市场数据可视化的应用。
+Native KLine View 是一个高性能、功能丰富的蜡烛图组件，专为专业交易类应用打造。基于 iOS 和 Android 原生实现，提供流畅的 60fps 滚动、缩放以及实时数据更新体验。
+
+适用于加密货币交易所、股票交易应用、金融分析工具以及任何需要专业级行情展示的场景。
+
+---
 
 ## 🌟 功能特性
 
-### 📈 **高级图表功能**
-- ✅ **超流畅滚动** - 原生性能优化，60fps丝滑体验
-- ✅ **手势缩放** - 流畅的双指缩放识别  
-- ✅ **长按详情** - 动画信息面板显示详细数据
-- ✅ **实时更新** - 高效数据管理和更新机制
-- ✅ **多时间周期** (1分钟、5分钟、15分钟、30分钟、1小时、4小时、1天、1周)
+### 📈 高级图表能力
 
-### 📊 **技术分析指标**
-- ✅ **主图指标**: MA（移动平均线）、BOLL（布林带）
-- ✅ **副图指标**: MACD、KDJ、RSI、WR
-- ✅ **自定义参数** - 所有指标支持参数调整
-- ✅ **多彩指标线** - 平滑动画效果
-- ✅ **成交量分析** - 专用成交量图表显示
+- 超流畅滚动（原生性能优化，接近 60fps）
+- 双指缩放（流畅手势识别）
+- 长按查看详情（带动画信息面板）
+- 实时数据更新（高效数据处理）
+- 多时间周期支持（1m / 5m / 15m / 30m / 1h / 4h / 1d / 1w）
 
-### ✏️ **交互式绘图工具**
-- ✅ **趋势线** - 对角线支撑阻力分析
-- ✅ **水平线** - 价格水平标记
-- ✅ **垂直线** - 时间事件标记
-- ✅ **矩形** - 范围高亮显示
-- ✅ **文本标注** - 自定义标签和注释
-- ✅ **绘图持久化** - 触摸编辑功能
+---
 
-### 🎨 **视觉效果**
-- ✅ **深色/浅色主题** - 即时切换，无缝过渡
-- ✅ **渐变背景** - 增强视觉吸引力
-- ✅ **自定义颜色** - 所有图表元素完全可定制
-- ✅ **响应式设计** - 支持横竖屏自动适配
-- ✅ **高DPI支持** - 所有设备清晰渲染
+### 📊 技术指标
 
-### 📱 **平台支持**
-- ✅ **iOS & Android** - 平台特定优化
-- ✅ **React Native 新架构** 兼容
-- ✅ **Fabric 渲染器** 支持，增强性能
-- ✅ **TypeScript** 类型定义包含
+- 主图指标：MA（均线）、BOLL（布林带）
+- 副图指标：MACD、KDJ、RSI、WR
+- 支持自定义参数
+- 多彩指标线 + 平滑动画
+- 成交量分析图
+
+---
+
+### ✏️ 绘图工具
+
+- 趋势线（支撑/阻力分析）
+- 水平线（价格标记）
+- 垂直线（时间标记）
+- 矩形（区间标注）
+- 文本标注
+- 支持编辑与持久化
+
+---
+
+### 🎨 视觉效果
+
+- 深色 / 浅色主题切换
+- 渐变背景
+- 全量自定义颜色
+- 响应式布局（横竖屏）
+- 高 DPI 渲染支持
+
+---
+
+### 📱 平台支持
+
+- iOS & Android（原生实现）
+- React Native 新架构支持（Fabric）
+- Flutter 支持
+- TypeScript 类型定义
+
+---
 
 ## 🚀 性能演示
 
 <div align="center">
-  <img src="./examples/react-native/1.png" alt="Performance Demo" width="300"  />
-  <img src="./examples/react-native/2.png" alt="Performance Demo" width="300" style="margin-left: 50px;"  />
-  <img src="./examples/react-native/3.png" alt="Performance Demo" width="800" />
-  <img src="./examples/react-native/4.gif" alt="Performance Demo" width="800" />
-  
-  *60fps 流畅滚动、缩放和绘图操作*
+  <img src="./examples/react-native/1.png" width="300" />
+  <img src="./examples/react-native/2.png" width="300" style="margin-left: 50px;" />
+  <img src="./examples/react-native/3.png" width="800" />
+  <img src="./examples/react-native/4.gif" width="800" />
 </div>
+
+---
 
 ## 📦 安装
 
@@ -91,13 +109,9 @@ dependencies:
 ```
 
 iOS:
-```bash
-cd ios && pod install
-```
-
 说明：Flutter 插件依赖原生 Pod，请在你的 Flutter Podfile 里加入：
 ```ruby
-pod 'NativeKLineView', :path => '../../../ios'
+pod 'NativeKLineView', :podspec => 'https://raw.githubusercontent.com/hellohublot/native-kline-view/main/ios/NativeKLineView.podspec'
 ```
 
 ```dart
@@ -111,12 +125,9 @@ NativeKLineView(
 
 ## 🔌 原生 iOS
 
-Podfile Git 方式：
+Podfile via Git:
 ```ruby
-pod 'NativeKLineView',
-  :git => 'https://github.com/hellohublot/native-kline-view.git',
-  :tag => '1.0.0',
-  :podspec => 'ios/NativeKLineView.podspec'
+pod 'NativeKLineView', :podspec => 'https://raw.githubusercontent.com/hellohublot/native-kline-view/main/ios/NativeKLineView.podspec'
 ```
 
 或使用本地 clone：
@@ -126,12 +137,18 @@ pod 'NativeKLineView', :path => '../native-kline-view/ios'
 
 ## 🔌 原生 Android（无需 Maven 账号）
 
-**方式 A：git submodule + Gradle project 依赖**
+### Native Android
+
+Recommended: add as a git submodule (or clone) and point Gradle to the module.
+
+```bash
+git submodule add https://github.com/hellohublot/native-kline-view.git
+```
 
 ```gradle
 // settings.gradle
 include(":native-kline-view")
-project(":native-kline-view").projectDir = new File(rootDir, "../native-kline-view/android")
+project(":native-kline-view").projectDir = new File(rootDir, "../native-kline-view/android/android-native")
 ```
 
 ```gradle
@@ -139,11 +156,7 @@ project(":native-kline-view").projectDir = new File(rootDir, "../native-kline-vi
 implementation project(":native-kline-view")
 ```
 
-**方式 B：本地 git checkout**
-
-将仓库 clone 到本地后，把 `projectDir` 指向 `android` 即可。
-
-**XML 使用方式**
+XML usage:
 
 ```xml
 <com.github.fujianlian.klinechart.NativeKLineView
