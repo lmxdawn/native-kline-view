@@ -11,10 +11,10 @@ public class NativeKLineView extends NativeKLineContainerView {
     }
 
     public NativeKLineView(Context context, AttributeSet attrs) {
-        super(context);
+        super(context, attrs);
     }
 
     public NativeKLineView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context);
+        super(context, attrs, defStyleAttr);
     }
 }

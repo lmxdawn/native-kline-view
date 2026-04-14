@@ -1,6 +1,7 @@
 package com.github.fujianlian.klinechart.container;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
@@ -40,6 +41,20 @@ public class NativeKLineContainerView extends RelativeLayout {
 
     public NativeKLineContainerView(Context context) {
         super(context);
+        init();
+    }
+
+    public NativeKLineContainerView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    public NativeKLineContainerView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    private void init() {
         klineView = new KLineChartView(getContext(), configManager);
         klineView.setGridColumns(5);
         klineView.setGridRows(3);

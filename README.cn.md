@@ -109,7 +109,14 @@ dependencies:
 ```
 
 iOS:
-说明：Flutter 插件依赖原生 Pod，请在你的 Flutter Podfile 里加入：
+说明：Flutter 插件依赖原生 Pod，请在你的 Flutter Podfile 里二选一：
+
+本地路径（推荐，用于本仓库）：
+```ruby
+pod 'NativeKLineView', :path => '../../../ios'
+```
+
+或远程 podspec（无需本地 clone）：
 ```ruby
 pod 'NativeKLineView', :podspec => 'https://raw.githubusercontent.com/hellohublot/native-kline-view/main/ios/NativeKLineView.podspec'
 ```
@@ -137,9 +144,7 @@ pod 'NativeKLineView', :path => '../native-kline-view/ios'
 
 ## 🔌 原生 Android（无需 Maven 账号）
 
-### Native Android
-
-Recommended: add as a git submodule (or clone) and point Gradle to the module.
+推荐：git submodule 或 clone 后，以 Gradle project 方式引用。
 
 ```bash
 git submodule add https://github.com/hellohublot/native-kline-view.git
@@ -148,7 +153,7 @@ git submodule add https://github.com/hellohublot/native-kline-view.git
 ```gradle
 // settings.gradle
 include(":native-kline-view")
-project(":native-kline-view").projectDir = new File(rootDir, "../native-kline-view/android/android-native")
+project(":native-kline-view").projectDir = new File(rootDir, "../native-kline-view/android")
 ```
 
 ```gradle
@@ -156,7 +161,7 @@ project(":native-kline-view").projectDir = new File(rootDir, "../native-kline-vi
 implementation project(":native-kline-view")
 ```
 
-XML usage:
+XML 使用方式：
 
 ```xml
 <com.github.fujianlian.klinechart.NativeKLineView
