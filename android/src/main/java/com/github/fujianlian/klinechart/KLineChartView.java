@@ -161,7 +161,7 @@ public class KLineChartView extends BaseKLineChartView {
 
     @Override
     public void onLeftSide() {
-        // showLoading();
+        showLoading();
     }
 
     @Override

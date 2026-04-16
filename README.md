@@ -70,7 +70,7 @@ Perfect for cryptocurrency exchanges, stock trading apps, financial dashboards, 
 ### React Native (Git)
 
 ```bash
-yarn add native-kline-view@https://github.com/hellohublot/native-kline-view.git
+yarn add native-kline-view@https://github.com/lmxdawn/native-kline-view.git
 ```
 
 React Native iOS:
@@ -87,7 +87,7 @@ No additional setup required.
 dependencies:
   native_kline_view:
     git:
-      url: https://github.com/hellohublot/native-kline-view.git
+      url: https://github.com/lmxdawn/native-kline-view.git
       path: flutter/native_kline_view
 ```
 
@@ -101,7 +101,7 @@ pod 'NativeKLineView', :path => '../../../ios'
 
 Or remote podspec (no local clone):
 ```ruby
-pod 'NativeKLineView', :podspec => 'https://raw.githubusercontent.com/hellohublot/native-kline-view/main/ios/NativeKLineView.podspec'
+pod 'NativeKLineView', :podspec => 'https://raw.githubusercontent.com/lmxdawn/native-kline-view/main/ios/NativeKLineView.podspec'
 ```
 
 ```dart
@@ -117,7 +117,7 @@ NativeKLineView(
 
 Podfile via Git:
 ```ruby
-pod 'NativeKLineView', :podspec => 'https://raw.githubusercontent.com/hellohublot/native-kline-view/main/ios/NativeKLineView.podspec'
+pod 'NativeKLineView', :podspec => 'https://raw.githubusercontent.com/lmxdawn/native-kline-view/main/ios/NativeKLineView.podspec'
 ```
 
 Or use a local clone:
@@ -130,7 +130,7 @@ pod 'NativeKLineView', :path => '../native-kline-view/ios'
 Recommended: add as a git submodule (or clone) and point Gradle to the module.
 
 ```bash
-git submodule add https://github.com/hellohublot/native-kline-view.git
+git submodule add https://github.com/lmxdawn/native-kline-view.git
 ```
 
 ```gradle
@@ -324,8 +324,8 @@ This project is a significant evolution and enhancement of the original [KChartV
 
 ## 📞 Support
 
-- 📧 **Email**: hellohublot@gmail.com
-- 💬 **Issues**: [GitHub Issues](https://github.com/hellohublot/react-native-kline-view/issues)
+- 📧 **Email**: lmxdawn@gmail.com
+- 💬 **Issues**: [GitHub Issues](https://github.com/lmxdawn/react-native-kline-view/issues)
 - 🎯 **Examples**: Check out [example/App.js](./examples/react-native/App.js) for comprehensive usage
 
 ---

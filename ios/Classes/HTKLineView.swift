@@ -13,6 +13,10 @@ class HTKLineView: UIScrollView {
         
     var configManager: HTKLineConfigManager
     
+    var onLoadMore: (() -> Void)?
+    
+    private var isLoadingMore = false
+    
     lazy var drawContext: HTDrawContext = {
         let drawContext = HTDrawContext.init(self, configManager)
         return drawContext
@@ -84,6 +88,8 @@ class HTKLineView: UIScrollView {
     }
 
     func reloadConfigManager(_ configManager: HTKLineConfigManager) {
+
+        isLoadingMore = false
 
         switch configManager.childType {
         case .none:
@@ -608,6 +614,12 @@ extension HTKLineView: UIScrollViewDelegate {
         visibleStartIndex = min(max(0, visibleStartIndex), configManager.modelArray.count - 1)
         visibleEndIndex = min(max(0, visibleEndIndex), configManager.modelArray.count - 1)
         visibleRange = visibleStartIndex...visibleEndIndex
+        
+        if contentOffsetX <= 0 && !isLoadingMore && configManager.modelArray.count > 0 {
+            isLoadingMore = true
+            onLoadMore?()
+        }
+        
         self.setNeedsDisplay()
     }
 

@@ -29,6 +29,8 @@ public class RNKLineView extends SimpleViewManager<HTKLineContainerView> {
 
 	public static String onDrawPointCompleteKey = "onDrawPointComplete";
 
+	public static String onLoadMoreKey = "onLoadMore";
+
     @Nonnull
     @Override
     public String getName() {
@@ -44,11 +46,13 @@ public class RNKLineView extends SimpleViewManager<HTKLineContainerView> {
 
 	@Override
 	public Map getExportedCustomDirectEventTypeConstants() {
-		return MapBuilder.of(
+		Map events = MapBuilder.of(
 				onDrawItemDidTouchKey, MapBuilder.of("registrationName", onDrawItemDidTouchKey),
 				onDrawItemCompleteKey, MapBuilder.of("registrationName", onDrawItemCompleteKey),
 				onDrawPointCompleteKey, MapBuilder.of("registrationName", onDrawPointCompleteKey)
 		);
+		events.put(onLoadMoreKey, MapBuilder.of("registrationName", onLoadMoreKey));
+		return events;
 	}
 
 

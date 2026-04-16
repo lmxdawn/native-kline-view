@@ -17,6 +17,8 @@ class HTKLineContainerView: UIView {
     
     @objc var onDrawPointComplete: RCTBubblingEventBlock?
     
+    @objc var onLoadMore: RCTBubblingEventBlock?
+    
     @objc var optionList: String? {
         didSet {
             guard let optionList = optionList else {
@@ -74,6 +76,9 @@ class HTKLineContainerView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(klineView)
+        klineView.onLoadMore = { [weak self] in
+            self?.onLoadMore?([:])
+        }
     }
     
     required init?(coder: NSCoder) {
