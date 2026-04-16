@@ -221,6 +221,9 @@ public class KLineChartView extends BaseKLineChartView {
      * 刷新完成
      */
     public void refreshComplete() {
+        if (!isRefreshing) {
+            return;
+        }
         isRefreshing = false;
         hideLoading();
     }

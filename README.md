@@ -70,7 +70,7 @@ Perfect for cryptocurrency exchanges, stock trading apps, financial dashboards, 
 ### React Native (Git)
 
 ```bash
-yarn add native-kline-view@https://github.com/lmxdawn/native-kline-view.git
+yarn add beacon-native-kline-view@https://github.com/lmxdawn/beacon-native-kline-view.git
 ```
 
 React Native iOS:
@@ -87,7 +87,7 @@ No additional setup required.
 dependencies:
   native_kline_view:
     git:
-      url: https://github.com/lmxdawn/native-kline-view.git
+      url: https://github.com/lmxdawn/beacon-native-kline-view.git
       path: flutter/native_kline_view
 ```
 
@@ -101,7 +101,7 @@ pod 'NativeKLineView', :path => '../../../ios'
 
 Or remote podspec (no local clone):
 ```ruby
-pod 'NativeKLineView', :podspec => 'https://raw.githubusercontent.com/lmxdawn/native-kline-view/main/ios/NativeKLineView.podspec'
+pod 'NativeKLineView', :podspec => 'https://raw.githubusercontent.com/lmxdawn/beacon-native-kline-view/main/ios/NativeKLineView.podspec'
 ```
 
 ```dart
@@ -117,12 +117,12 @@ NativeKLineView(
 
 Podfile via Git:
 ```ruby
-pod 'NativeKLineView', :podspec => 'https://raw.githubusercontent.com/lmxdawn/native-kline-view/main/ios/NativeKLineView.podspec'
+pod 'NativeKLineView', :podspec => 'https://raw.githubusercontent.com/lmxdawn/beacon-native-kline-view/main/ios/NativeKLineView.podspec'
 ```
 
 Or use a local clone:
 ```ruby
-pod 'NativeKLineView', :path => '../native-kline-view/ios'
+pod 'NativeKLineView', :path => '../beacon-native-kline-view/ios'
 ```
 
 ### Native Android
@@ -130,18 +130,18 @@ pod 'NativeKLineView', :path => '../native-kline-view/ios'
 Recommended: add as a git submodule (or clone) and point Gradle to the module.
 
 ```bash
-git submodule add https://github.com/lmxdawn/native-kline-view.git
+git submodule add https://github.com/lmxdawn/beacon-native-kline-view.git
 ```
 
 ```gradle
 // settings.gradle
-include(":native-kline-view")
-project(":native-kline-view").projectDir = new File(rootDir, "../native-kline-view/android")
+include(":beacon-native-kline-view")
+project(":beacon-native-kline-view").projectDir = new File(rootDir, "../beacon-native-kline-view/android")
 ```
 
 ```gradle
 // app/build.gradle
-implementation project(":native-kline-view")
+implementation project(":beacon-native-kline-view")
 ```
 
 XML usage:
@@ -325,7 +325,7 @@ This project is a significant evolution and enhancement of the original [KChartV
 ## 📞 Support
 
 - 📧 **Email**: lmxdawn@gmail.com
-- 💬 **Issues**: [GitHub Issues](https://github.com/lmxdawn/react-native-kline-view/issues)
+- 💬 **Issues**: [GitHub Issues](https://github.com/lmxdawn/react-beacon-native-kline-view/issues)
 - 🎯 **Examples**: Check out [example/App.js](./examples/react-native/App.js) for comprehensive usage
 
 ---
