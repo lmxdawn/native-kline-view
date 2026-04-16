@@ -70,6 +70,8 @@ class HTKLineConfigManager: NSObject {
 
     var shouldScrollToEnd = true
 
+    var noMoreData = false
+
     var maList = [HTKLineItemModel]()
 
     var maVolumeList = [HTKLineItemModel]()
@@ -382,6 +384,9 @@ class HTKLineConfigManager: NSObject {
 
         if let shouldScrollToEnd = optionList["shouldScrollToEnd"] as? Bool {
             self.shouldScrollToEnd = shouldScrollToEnd
+        }
+        if let noMoreData = optionList["noMoreData"] as? Bool {
+            self.noMoreData = noMoreData
         }
         if shouldReloadDrawItemIndex >= HTDrawState.showPencil.rawValue {
             self.shouldScrollToEnd = false

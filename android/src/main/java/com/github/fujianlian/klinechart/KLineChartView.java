@@ -184,6 +184,14 @@ public class KLineChartView extends BaseKLineChartView {
         }
     }
 
+    /**
+     * Adjust mScrollX directly without bounds checking.
+     * Call before notifyChanged() to maintain visual position after prepending data.
+     */
+    public void preAdjustScrollX(int offset) {
+        mScrollX += offset;
+    }
+
     public void justShowLoading() {
         if (!isRefreshing) {
             isLongPress = false;

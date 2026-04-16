@@ -974,6 +974,10 @@ public abstract class BaseKLineChartView extends ScrollAndScaleView implements D
         }
     }
 
+    public int getItemCount() {
+        return mItemCount;
+    }
+
     @Override
     public int getMinScrollX() {
 //        return (int) -(mOverScrollRange / mScaleX);

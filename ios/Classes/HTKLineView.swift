@@ -105,6 +105,7 @@ class HTKLineView: UIScrollView {
         }
 
         let isEnd = contentOffset.x + 1 + bounds.size.width >= contentSize.width
+        let oldContentWidth = contentSize.width
         reloadContentSize()
 
         if (configManager.shouldScrollToEnd || isEnd) {
@@ -112,6 +113,13 @@ class HTKLineView: UIScrollView {
             let distance = abs(contentOffset.x - toEndContentOffset)
             let animated = distance <= configManager.itemWidth
             reloadContentOffset(toEndContentOffset, animated)
+        } else {
+            // Data was prepended — adjust contentOffset to maintain visual position
+            let addedWidth = contentSize.width - oldContentWidth
+            if addedWidth > 0 {
+                let newOffsetX = contentOffset.x + addedWidth
+                setContentOffset(CGPoint(x: newOffsetX, y: 0), animated: false)
+            }
         }
 
         scrollViewDidScroll(self)
@@ -615,8 +623,12 @@ extension HTKLineView: UIScrollViewDelegate {
         visibleEndIndex = min(max(0, visibleEndIndex), configManager.modelArray.count - 1)
         visibleRange = visibleStartIndex...visibleEndIndex
         
-        if contentOffsetX <= 0 && !isLoadingMore && configManager.modelArray.count > 0 {
+        if contentOffsetX <= 5 && configManager.modelArray.count > 0 {
+            NSLog("[KLine-iOS] contentOffsetX=%.2f isLoadingMore=%d onLoadMore=%@", contentOffsetX, isLoadingMore ? 1 : 0, onLoadMore == nil ? "nil" : "set")
+        }
+        if contentOffsetX <= 0 && !isLoadingMore && configManager.modelArray.count > 0 && !configManager.noMoreData {
             isLoadingMore = true
+            NSLog("[KLine-iOS] 🔥 onLoadMore fired!")
             onLoadMore?()
         }
         

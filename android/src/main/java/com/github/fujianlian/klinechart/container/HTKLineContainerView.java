@@ -68,7 +68,12 @@ public class HTKLineContainerView extends RelativeLayout {
     }
 
     public void reloadConfigManager() {
-        klineView.refreshComplete();
+        if (configManager.noMoreData) {
+            klineView.refreshEnd();
+        } else {
+            klineView.refreshComplete();
+            klineView.resetLoadMoreEnd();
+        }
         klineView.changeMainDrawType(klineView.configManager.primaryStatus);
         klineView.changeSecondDrawType(klineView.configManager.secondStatus);
         klineView.setMainDrawLine(klineView.configManager.isMinute);
@@ -84,6 +89,17 @@ public class HTKLineContainerView extends RelativeLayout {
         klineView.setMTextColor(klineView.configManager.candleTextColor);
         klineView.reloadColor();
         Boolean isEnd = klineView.getScrollOffset() >= klineView.getMaxScrollX();
+
+        // When data is prepended (load-more), adjust scroll position before notifyChanged()
+        // so checkAndFixScrollX() doesn't re-trigger onLeftSide().
+        int oldItemCount = klineView.getItemCount();
+        int newItemCount = configManager.modelArray.size();
+        if (!klineView.configManager.shouldScrollToEnd && newItemCount > oldItemCount) {
+            int addedCount = newItemCount - oldItemCount;
+            int offset = (int)(addedCount * configManager.itemWidth);
+            klineView.preAdjustScrollX(offset);
+        }
+
         klineView.notifyChanged();
         if (isEnd || klineView.configManager.shouldScrollToEnd) {
             klineView.setScrollX(klineView.getMaxScrollX());

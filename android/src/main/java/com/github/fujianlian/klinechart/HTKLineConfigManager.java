@@ -22,6 +22,7 @@ public class HTKLineConfigManager {
 
 	public Boolean shouldScrollToEnd = true;
 
+        public Boolean noMoreData = false;
 
 	public int shotBackgroundColor = Color.RED;
 
@@ -316,6 +317,11 @@ public class HTKLineConfigManager {
         Boolean shouldScrollToEnd = (Boolean)optionList.get("shouldScrollToEnd");
         if (shouldScrollToEnd != null) {
             this.shouldScrollToEnd = shouldScrollToEnd;
+        }
+
+        Boolean noMoreData = (Boolean)optionList.get("noMoreData");
+        if (noMoreData != null) {
+            this.noMoreData = noMoreData;
         }
 
         if (shouldReloadDrawItemIndex >= HTDrawState.showPencil) {
