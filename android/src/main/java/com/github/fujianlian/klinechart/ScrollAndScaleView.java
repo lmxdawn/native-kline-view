@@ -38,6 +38,9 @@ public abstract class ScrollAndScaleView extends RelativeLayout implements
 
     private boolean mScaleEnable = true;
 
+    /// User has manually dragged the chart
+    public boolean userDragged = false;
+
     public ScrollAndScaleView(Context context) {
         super(context);
         init();
@@ -86,6 +89,7 @@ public abstract class ScrollAndScaleView extends RelativeLayout implements
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
         if (!isLongPress && !isMultipleTouch()) {
+            userDragged = true;
             scrollBy(-Math.round(distanceX), 0);
             return true;
         }

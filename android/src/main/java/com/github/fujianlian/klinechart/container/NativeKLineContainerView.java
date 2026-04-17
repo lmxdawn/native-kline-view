@@ -33,6 +33,13 @@ public class NativeKLineContainerView extends RelativeLayout {
 
     public HTShotView shotView;
 
+    // Track previous data state to detect prepended (load-more) data
+    private int lastModelCount = 0;
+    private float lastFirstId = Float.MAX_VALUE;
+
+    // Suppress shouldScrollToEnd while waiting for load-more data
+    private boolean loadMoreActive = false;
+
     public OnDrawItemDidTouchListener onDrawItemDidTouch;
 
     public OnDrawItemCompleteListener onDrawItemComplete;
@@ -107,10 +114,51 @@ public class NativeKLineContainerView extends RelativeLayout {
         klineView.setMTextColor(klineView.configManager.candleTextColor);
         klineView.reloadColor();
         Boolean isEnd = klineView.getScrollOffset() >= klineView.getMaxScrollX();
+
+        // Detect if historical data was prepended
+        int newItemCount = configManager.modelArray.size();
+        float newFirstId = newItemCount > 0 ? configManager.modelArray.get(0).id : Float.MAX_VALUE;
+        boolean wasPrepended = lastModelCount > 0
+                && newItemCount > lastModelCount
+                && newFirstId < lastFirstId;
+
+        // Detect full data replacement (e.g. period switch)
+        boolean dataReplaced = lastModelCount > 0 && newItemCount > 0
+                && newFirstId != lastFirstId && !wasPrepended;
+
+        // Reset flags on data replacement (period switch)
+        if (dataReplaced) {
+            loadMoreActive = false;
+            klineView.userDragged = false;
+        }
+        if (wasPrepended || configManager.noMoreData) {
+            loadMoreActive = false;
+        }
+        // Clear flags when user is at the right edge
+        if (isEnd) {
+            loadMoreActive = false;
+            klineView.userDragged = false;
+        }
+
+        boolean suppressScroll = loadMoreActive || klineView.userDragged;
+
+        if (wasPrepended) {
+            int addedCount = newItemCount - lastModelCount;
+            int offset = (int)(addedCount * configManager.itemWidth);
+            klineView.preAdjustScrollX(offset);
+        }
+
         klineView.notifyChanged();
-        if (isEnd || klineView.configManager.shouldScrollToEnd) {
+
+        if (wasPrepended) {
+            // Already adjusted — do not scroll to end
+        } else if (!suppressScroll && (isEnd || klineView.configManager.shouldScrollToEnd)) {
             klineView.setScrollX(klineView.getMaxScrollX());
         }
+
+        // Remember current state for next comparison
+        lastModelCount = newItemCount;
+        lastFirstId = newFirstId;
 
         configManager.onDrawItemDidTouch = new HTKLineCallback() {
             @Override

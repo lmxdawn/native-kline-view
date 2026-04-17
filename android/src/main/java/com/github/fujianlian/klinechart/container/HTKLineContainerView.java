@@ -29,6 +29,13 @@ public class HTKLineContainerView extends RelativeLayout {
 
     public HTShotView shotView;
 
+    // Track previous data state to detect prepended (load-more) data
+    private int lastModelCount = 0;
+    private float lastFirstId = Float.MAX_VALUE;
+
+    // Suppress shouldScrollToEnd while waiting for load-more data
+    private boolean loadMoreActive = false;
+
     public HTKLineContainerView(ThemedReactContext context) {
         super(context);
         this.reactContext = context;
@@ -44,6 +51,7 @@ public class HTKLineContainerView extends RelativeLayout {
         klineView.setRefreshListener(new KLineChartView.KChartRefreshListener() {
             @Override
             public void onLoadMoreBegin(KLineChartView chart) {
+                loadMoreActive = true;
                 reactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                         getId(),
                         RNKLineView.onLoadMoreKey,
@@ -90,20 +98,50 @@ public class HTKLineContainerView extends RelativeLayout {
         klineView.reloadColor();
         Boolean isEnd = klineView.getScrollOffset() >= klineView.getMaxScrollX();
 
-        // When data is prepended (load-more), adjust scroll position before notifyChanged()
-        // so checkAndFixScrollX() doesn't re-trigger onLeftSide().
-        int oldItemCount = klineView.getItemCount();
+        // Detect if historical data was prepended
         int newItemCount = configManager.modelArray.size();
-        if (!klineView.configManager.shouldScrollToEnd && newItemCount > oldItemCount) {
-            int addedCount = newItemCount - oldItemCount;
+        float newFirstId = newItemCount > 0 ? configManager.modelArray.get(0).id : Float.MAX_VALUE;
+        boolean wasPrepended = lastModelCount > 0
+                && newItemCount > lastModelCount
+                && newFirstId < lastFirstId;
+
+        // Detect full data replacement (e.g. period switch)
+        boolean dataReplaced = lastModelCount > 0 && newItemCount > 0
+                && newFirstId != lastFirstId && !wasPrepended;
+
+        // Reset flags on data replacement (period switch)
+        if (dataReplaced) {
+            loadMoreActive = false;
+            klineView.userDragged = false;
+        }
+        if (wasPrepended || configManager.noMoreData) {
+            loadMoreActive = false;
+        }
+        // Clear flags when user is at the right edge
+        if (isEnd) {
+            loadMoreActive = false;
+            klineView.userDragged = false;
+        }
+
+        boolean suppressScroll = loadMoreActive || klineView.userDragged;
+
+        if (wasPrepended) {
+            int addedCount = newItemCount - lastModelCount;
             int offset = (int)(addedCount * configManager.itemWidth);
             klineView.preAdjustScrollX(offset);
         }
 
         klineView.notifyChanged();
-        if (isEnd || klineView.configManager.shouldScrollToEnd) {
+
+        if (wasPrepended) {
+            // Already adjusted — do not scroll to end
+        } else if (!suppressScroll && (isEnd || klineView.configManager.shouldScrollToEnd)) {
             klineView.setScrollX(klineView.getMaxScrollX());
         }
+
+        // Remember current state for next comparison
+        lastModelCount = newItemCount;
+        lastFirstId = newFirstId;
 
 
         final int id = this.getId();

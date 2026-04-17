@@ -16,6 +16,16 @@ class HTKLineView: UIScrollView {
     var onLoadMore: (() -> Void)?
     
     private var isLoadingMore = false
+
+    /// Track previous data state to detect prepended (load-more) data
+    private var lastModelCount: Int = 0
+    private var lastFirstId: CGFloat? = nil
+
+    /// Suppress shouldScrollToEnd while waiting for load-more data
+    private var loadMoreActive = false
+
+    /// User has manually dragged the chart away from the right edge
+    private var userDragged = false
     
     lazy var drawContext: HTDrawContext = {
         let drawContext = HTDrawContext.init(self, configManager)
@@ -106,21 +116,58 @@ class HTKLineView: UIScrollView {
 
         let isEnd = contentOffset.x + 1 + bounds.size.width >= contentSize.width
         let oldContentWidth = contentSize.width
+
+        // Detect if historical data was prepended:
+        // new first candle id is earlier (smaller) than before, and total count grew
+        let newFirstId = configManager.modelArray.first?.id
+        let newCount = configManager.modelArray.count
+        let wasPrepended = lastModelCount > 0
+            && newCount > lastModelCount
+            && lastFirstId != nil
+            && newFirstId != nil
+            && newFirstId! < lastFirstId!
+
+        // Detect full data replacement (e.g. period switch):
+        // firstId changed but it's not a prepend
+        let dataReplaced = lastModelCount > 0 && newCount > 0
+            && newFirstId != nil && lastFirstId != nil
+            && newFirstId! != lastFirstId! && !wasPrepended
+
+        // Reset flags on data replacement (period switch)
+        if dataReplaced {
+            loadMoreActive = false
+            userDragged = false
+        }
+        if wasPrepended || configManager.noMoreData {
+            loadMoreActive = false
+        }
+        // Clear userDragged when user is at the right edge
+        if isEnd {
+            loadMoreActive = false
+            userDragged = false
+        }
+
+        // Whether scroll-to-end should be suppressed
+        let suppressScroll = loadMoreActive || userDragged
+
         reloadContentSize()
 
-        if (configManager.shouldScrollToEnd || isEnd) {
+        if wasPrepended {
+            // Historical data was prepended — maintain current scroll position
+            let addedWidth = contentSize.width - oldContentWidth
+            if addedWidth > 0 {
+                setContentOffset(CGPoint(x: contentOffset.x + addedWidth, y: 0), animated: false)
+            }
+        } else if !suppressScroll && (configManager.shouldScrollToEnd || isEnd) {
             let toEndContentOffset = contentSize.width - bounds.size.width
             let distance = abs(contentOffset.x - toEndContentOffset)
             let animated = distance <= configManager.itemWidth
             reloadContentOffset(toEndContentOffset, animated)
-        } else {
-            // Data was prepended — adjust contentOffset to maintain visual position
-            let addedWidth = contentSize.width - oldContentWidth
-            if addedWidth > 0 {
-                let newOffsetX = contentOffset.x + addedWidth
-                setContentOffset(CGPoint(x: newOffsetX, y: 0), animated: false)
-            }
         }
+
+        // Remember current state for next comparison
+        lastModelCount = newCount
+        lastFirstId = newFirstId
 
         scrollViewDidScroll(self)
 
@@ -628,7 +675,8 @@ extension HTKLineView: UIScrollViewDelegate {
         }
         if contentOffsetX <= 0 && !isLoadingMore && configManager.modelArray.count > 0 && !configManager.noMoreData {
             isLoadingMore = true
-            NSLog("[KLine-iOS] 🔥 onLoadMore fired!")
+            loadMoreActive = true
+            NSLog("[KLine-iOS] 🔥 onLoadMore fired! loadMoreActive=true")
             onLoadMore?()
         }
         
@@ -637,6 +685,7 @@ extension HTKLineView: UIScrollViewDelegate {
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         selectedIndex = -1
+        userDragged = true
         self.setNeedsDisplay()
     }
 
